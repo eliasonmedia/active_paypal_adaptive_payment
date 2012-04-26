@@ -120,7 +120,7 @@ module ActiveMerchant
           x.pin opts[:pin] if opts[:pin]
           x.currencyCode opts[:currency_code] ||= 'USD'
           x.senderOptions do |x|
-            x.referrerCode opts[:sender][:referrer_code] if opts[:sender][:referrer_code]
+            x.referrerCode opts[:sender][:referrerCode] if opts[:sender][:referrerCode]
           end
           x.receiverList do |x|
             opts[:receiver_list].each do |receiver|
