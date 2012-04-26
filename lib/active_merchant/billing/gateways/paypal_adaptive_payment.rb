@@ -5,10 +5,10 @@ require File.dirname(__FILE__) + '/paypal_adaptive_payment_common'
 require File.dirname(__FILE__) + '/paypal_adaptive_payments/exceptions'
 require File.dirname(__FILE__) + '/paypal_adaptive_payments/adaptive_payment_response'
 
-module ActiveMerchant #:nodoc:
-  module Billing #:nodoc:
+module ActiveMerchant
+  module Billing
 
-    class PaypalAdaptivePayment < Gateway # :nodoc
+    class PaypalAdaptivePayment < Gateway
       include PaypalAdaptivePaymentCommon
 
       TEST_URL = 'https://svcs.sandbox.paypal.com/AdaptivePayments/'
@@ -27,7 +27,7 @@ module ActiveMerchant #:nodoc:
         TYPES.each { |pt| const_set(pt, pt) }
       end
 
-	    self.test_redirect_url= "https://www.sandbox.paypal.com/webscr?cmd=_ap-payment&paykey="
+      self.test_redirect_url= "https://www.sandbox.paypal.com/webscr?cmd=_ap-payment&paykey="
       self.test_redirect_pre_approval_url= "https://www.sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey="
       self.supported_countries = ['US']
       self.homepage_url = 'http://x.com/'
@@ -45,6 +45,18 @@ module ActiveMerchant #:nodoc:
 
       def details_for_payment(options)
         commit('PaymentDetails', build_adaptive_payment_details_request(options))
+      end
+
+      def get_shipping_addresses(options)
+        commit('GetShippingAddresses', build_adaptive_get_shipping_addresses_request(options))
+      end
+
+      def get_payment_options(options)
+        commit('GetPaymentOptions', build_adaptive_get_payment_options_request(options))
+      end
+
+      def set_payment_options(options)
+        commit('SetPaymentOptions', build_adaptive_set_payment_options_request(options))
       end
 
       def refund(options)
@@ -73,6 +85,10 @@ module ActiveMerchant #:nodoc:
 
       def embedded_flow_url
         test? ? EMBEDDED_FLOW_TEST_URL : EMBEDDED_FLOW_LIVE_URL
+      end
+
+      def embedded_flow_url_for(token)
+        "#{embedded_flow_url}?paykey=#{token}"
       end
 
       def debug
@@ -143,6 +159,53 @@ module ActiveMerchant #:nodoc:
           x.requestEnvelope do |x|
             x.detailLevel 'ReturnAll'
             x.errorLanguage opts[:error_language] ||= 'en_US'
+          end
+          x.payKey opts[:pay_key]
+        end
+      end
+
+      def build_adaptive_get_shipping_addresses_request(opts)
+        @xml = ''
+        xml = Builder::XmlMarkup.new :target => @xml, :indent => 2
+        xml.instruct!
+        xml.GetShippingAddressesRequest do |x|
+          x.requestEnvelope do |x|
+            x.detailLevel 'ReturnAll'
+            x.errorLanguage opts[:error_language] ||= 'en_US'
+          end
+          x.key opts[:pay_key]
+        end
+      end
+
+      def build_adaptive_get_payment_options_request(opts)
+        @xml = ''
+        xml = Builder::XmlMarkup.new :target => @xml, :indent => 2
+        xml.instruct!
+        xml.GetPaymentOptionsRequest do |x|
+          x.requestEnvelope do |x|
+            x.detailLevel 'ReturnAll'
+            x.errorLanguage opts[:error_language] ||= 'en_US'
+          end
+          x.payKey opts[:pay_key]
+        end
+      end
+
+      def build_adaptive_set_payment_options_request(opts)
+        opts[:sender] ||= {}
+
+        @xml = ''
+        xml = Builder::XmlMarkup.new :target => @xml, :indent => 2
+        xml.instruct!
+        xml.SetPaymentOptionsRequest do |x|
+          x.requestEnvelope do |x|
+            x.detailLevel 'ReturnAll'
+            x.errorLanguage opts[:error_language] ||= 'en_US'
+          end
+          x.senderOptions do |x|
+            x.shareAddress opts[:sender][:share_address] if opts[:sender][:share_address]
+            x.sharePhoneNumber opts[:sender][:share_phone_number] if opts[:sender][:share_phone_number]
+            x.requireShippingAddressSelection opts[:sender][:require_shipping_address_selection] if opts[:sender][:require_shipping_address_selection]
+            x.referrerCode opts[:sender][:referrerCode] if opts[:sender][:referrerCode]
           end
           x.payKey opts[:pay_key]
         end
@@ -306,7 +369,6 @@ module ActiveMerchant #:nodoc:
       def action_url(action)
         @url = URI.parse(endpoint_url + action)
       end
-
     end
   end
 end

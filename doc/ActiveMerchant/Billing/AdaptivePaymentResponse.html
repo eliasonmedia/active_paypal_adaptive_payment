@@ -102,7 +102,7 @@
         <dt id="SUCCESS-constant" class="">SUCCESS =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Success</span><span class='tstring_end'>'</span></span><span class='period'>.</span><span class='id freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Success</span><span class='tstring_end'>'</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
   
@@ -337,23 +337,24 @@ A new instance of AdaptivePaymentResponse
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+13
 14
 15
-16
-17</pre>
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 13</span>
 
-<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id json'>json</span><span class='rparen'>)</span>
-  <span class='ivar'>@json</span> <span class='op'>=</span> <span class='id json'>json</span>
-  <span class='ivar'>@response_rash</span> <span class='op'>=</span> <span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Rash</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='const'>MultiJson</span><span class='period'>.</span><span class='id decode'>decode</span><span class='lparen'>(</span><span class='id json'>json</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span>
+  <span class='ivar'>@json</span> <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span>
+  <span class='ivar'>@response_rash</span> <span class='op'>=</span> <span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Rash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>MultiJson</span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -381,15 +382,15 @@ A new instance of AdaptivePaymentResponse
       <pre class="lines">
 
 
+18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id method_missing'>method_missing</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@response_rash</span><span class='period'>.</span><span class='id send'>send</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@response_rash</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -426,20 +427,21 @@ Returns the value of attribute json
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+10
 11
-12
-13</pre>
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 10</span>
 
-<span class='kw'>def</span> <span class='id json'>json</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_json'>json</span>
   <span class='ivar'>@json</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -467,7 +469,7 @@ Returns the value of attribute json
 def redirect_url_for
 </p>
 <pre class="code">
-  <span class='const'>Base</span><span class='period'>.</span><span class='id gateway_mode'>gateway_mode</span> <span class='op'>==</span> <span class='symbol'>:test</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='const'>TEST_REDIRECT_URL</span> <span class='op'>+</span> <span class='id pay_key'>pay_key</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='const'>REDIRECT_URL</span> <span class='op'>+</span> <span class='id pay_key'>pay_key</span><span class='rparen'>)</span>
+  <span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_gateway_mode'>gateway_mode</span> <span class='op'>==</span> <span class='symbol'>:test</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='const'>TEST_REDIRECT_URL</span> <span class='op'>+</span> <span class='id identifier rubyid_pay_key'>pay_key</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='const'>REDIRECT_URL</span> <span class='op'>+</span> <span class='id identifier rubyid_pay_key'>pay_key</span><span class='rparen'>)</span>
 </pre>
 <p>
 end
@@ -478,21 +480,22 @@ end
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+26
 27
-28
-29</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='id ack'>ack</span>
-  <span class='id response_envelope'>response_envelope</span><span class='period'>.</span><span class='id ack'>ack</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_ack'>ack</span>
+  <span class='id identifier rubyid_response_envelope'>response_envelope</span><span class='period'>.</span><span class='id identifier rubyid_ack'>ack</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -512,15 +515,15 @@ end
       <pre class="lines">
 
 
+34
 35
-36
-37</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 34</span>
 
-<span class='kw'>def</span> <span class='id build'>build</span>
-  <span class='id response_envelope'>response_envelope</span><span class='period'>.</span><span class='id build'>build</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_build'>build</span>
+  <span class='id identifier rubyid_response_envelope'>response_envelope</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -544,15 +547,15 @@ end
       <pre class="lines">
 
 
+38
 39
-40
-41</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 38</span>
 
-<span class='kw'>def</span> <span class='id correlation_id'>correlation_id</span>
-  <span class='id response_envelope'>response_envelope</span><span class='period'>.</span><span class='id correlation_id'>correlation_id</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_correlation_id'>correlation_id</span>
+  <span class='id identifier rubyid_response_envelope'>response_envelope</span><span class='period'>.</span><span class='id identifier rubyid_correlation_id'>correlation_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -573,7 +576,8 @@ end
   </div>
 </div>
 <div class="tags">
-  <h3>Returns:</h3>
+  
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -593,15 +597,15 @@ end
       <pre class="lines">
 
 
+43
 44
-45
-46</pre>
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id success?'>success?</span>
-  <span class='id ack'>ack</span> <span class='op'>==</span> <span class='const'>SUCCESS</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_success?'>success?</span>
+  <span class='id identifier rubyid_ack'>ack</span> <span class='op'>==</span> <span class='const'>SUCCESS</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -621,15 +625,15 @@ end
       <pre class="lines">
 
 
+30
 31
-32
-33</pre>
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/active_merchant/billing/gateways/paypal_adaptive_payments/adaptive_payment_response.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id timestamp'>timestamp</span>
-  <span class='id response_envelope'>response_envelope</span><span class='period'>.</span><span class='id timestamp'>timestamp</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_timestamp'>timestamp</span>
+  <span class='id identifier rubyid_response_envelope'>response_envelope</span><span class='period'>.</span><span class='id identifier rubyid_timestamp'>timestamp</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -641,9 +645,9 @@ end
 </div>
     
     <div id="footer">
-  Generated on Sat Oct 22 02:54:45 2011 by 
+  Generated on Tue Feb 21 18:30:16 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.2 (ruby-1.9.2).
+  0.7.4 (ruby-1.9.2).
 </div>
 
   </body>

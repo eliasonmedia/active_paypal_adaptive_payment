@@ -12,6 +12,9 @@ This library is meant to interface with PayPal's Adaptive Payment Gateway.
 * Peapprovals
 * Refunds
 * Currency conversions
+* getting/setting payment options
+* getting shipping addresses
+* getting a redirect for the embedded pay flow
 * More soon!
 
 ## Installation
@@ -28,24 +31,23 @@ See [iAuction: An Adaptive Payments Tutorial Featuring Parallel Payments](https:
 
 ### Init
 
-    gateway =
-          ActiveMerchant::Billing::PaypalAdaptivePayment.new(
-             :login => "acutio_1313133342_biz_api1.gmail.com",
-             :password => "1255043567",
-             :signature => "Abg0gYcQlsdkls2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf",
-             :appid => "APP-80W284485P519543T" )
+    gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new(
+      :login => "acutio_1313133342_biz_api1.gmail.com",
+      :password => "1255043567",
+      :signature => "Abg0gYcQlsdkls2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf",
+      :appid => "APP-80W284485P519543T" )
 
 ### Pre-approved paymen
 
-      gateway.preapprove_payment (
-         :return_url => "returnURL",
-         :cancel_url => "cancelURL",
-         :senderEmail =>"email address of sender",
-         :start_date => Time.now,
-         :end_date => Time.now + (60*60*24) * 30,
-         :currency_code =>"currency code",
-         :max_amount => "maxTotalAmountOfAllPayments",
-         :maxNumberOfPayments => "maxNumberOfPayments" )
+    gateway.preapprove_payment (
+      :return_url => "returnURL",
+      :cancel_url => "cancelURL",
+      :senderEmail =>"email address of sender",
+      :start_date => Time.now,
+      :end_date => Time.now + (60*60*24) * 30,
+      :currency_code =>"currency code",
+      :max_amount => "maxTotalAmountOfAllPayments",
+      :maxNumberOfPayments => "maxNumberOfPayments" )
 
 ### Cancel pre-approved payment
 
@@ -64,23 +66,39 @@ See [iAuction: An Adaptive Payments Tutorial Featuring Parallel Payments](https:
       response = gateway.setup_purchase(
         :return_url => url_for(:action => 'action', :only_path => false),
         :cancel_url => url_for(:action => 'action', :only_path => false),
-        :notify_url => url_for(:action => 'notify_action', :only_path => false),
+        :ipn_notification_url => url_for(:action => 'notify_action', :only_path => false),
         :receiver_list => recipients
       )
 
       # for redirecting the customer to the actual paypal site to finish the payment.
-     redirect_to (gateway.redirect_url_for(response["payKey"]))
+      redirect_to (gateway.redirect_url_for(response["payKey"]))
     end
 
 Set the `:primary` flag to `false` for each recipient for a split payment.
 
 Maybe also check the tests for a sample implementation.
 
+Notes:
+
+In `development` environment it's very important to define
+ActiveMerchant environment you will be using to test your app like so:
+
+```ruby
+#config/environments/{environment.rb}
+App::Application.configure do
+  config.setting...
+end
+ActiveMerchant::Billing::Base.mode = :test
+```
+
 ## Testing
 
-First modify the values in `test/fixtures.yml` to fit your app credentials.
+First modify the `test/fixtures.yml` to fit your app credentials (You
+will need at least a PayPal developer account).
 
-After that you can just execute them via `autotest`.
+After that you can run them like this:
+
+    $ ruby -Ilib test/test_paypal_adaptive_payment.rb
 
 ## Debugging
 
@@ -96,8 +114,12 @@ xml request, raw json response and the URL of the endpoint.
 
 ## TODO
 
-* Documentation
-* More tests
+* More/better Documentation.
+* Improve/change the tests implementation by maybe run them off
+  fixture data and use a separate script/test for actually invoking
+  requests to PayPal. This will allow other developers to implement
+  the without being required to set and request the credentials from
+  PayPal process.
 
 ## Contributors
 
@@ -106,6 +128,9 @@ xml request, raw json response and the URL of the endpoint.
 * LeviRosol (<https://github.com/LeviRosol>)
 * Florian95 (<https://github.com/Florian95>)
 * akichatov (<https://github.com/akichatov>)
+* Patrick Sinclair (<https://github.com/metade>)
+* Mike Pence (<https://github.com/mikepence>)
+* Nicola Junior Vitto (<https://github.com/njvitto>)
 
 ## Other previous contributors where some code was taken from.
 
