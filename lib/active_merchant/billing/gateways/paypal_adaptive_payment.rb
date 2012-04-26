@@ -111,7 +111,6 @@ module ActiveMerchant
           x.senderEmail opts[:sender_email] if opts.key?(:sender_email)
           x.cancelUrl opts[:cancel_url]
           x.returnUrl opts[:return_url]
-          x.feesPayer opts[:fees_payer]
           x.ipnNotificationUrl opts[:ipn_notification_url] if
             opts[:ipn_notification_url]
           x.memo opts[:memo] if opts.key?(:memo)
@@ -120,7 +119,7 @@ module ActiveMerchant
           x.pin opts[:pin] if opts[:pin]
           x.currencyCode opts[:currency_code] ||= 'USD'
           x.senderOptions do |x|
-            x.referrerCode opts[:sender][:referrerCode] if opts[:sender][:referrerCode]
+            x.referrerCode opts[:sender][:referrerCode]
           end
           x.receiverList do |x|
             opts[:receiver_list].each do |receiver|
